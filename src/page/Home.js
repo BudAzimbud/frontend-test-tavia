@@ -4,9 +4,10 @@ import Navbar from "react-bootstrap/Navbar";
 import Pancake1 from "../assets/image/pancake-1.png";
 import kaonIcon from "../assets/image/kaon_icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="bg-body-tertiary">
       <div className="position-fixed d-none d-lg-inline z-3 h-100 bg-white px-3 border">
@@ -98,7 +99,14 @@ function Home() {
             </div>
           </div>
 
-          <Link to="/login" className="d-flex flex-column gap-2 justify-content-center">
+          <div
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/login");
+            }}
+            className="d-flex flex-column gap-2 justify-content-center "
+            style={{cursor:'pointer'}}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="34"
@@ -128,9 +136,9 @@ function Home() {
                 stroke-linejoin="round"
               />
             </svg>
-            
+
             <span className="small">LOGOUT</span>
-          </Link>
+          </div>
         </div>
       </div>
       <Navbar className="border bg-white">
@@ -157,7 +165,7 @@ function Home() {
       </Navbar>
       <Container className="ps-5">
         <Row className="mt-3">
-          <Col lg={8} md={12} >
+          <Col lg={8} md={12}>
             <Row>
               {Array.from(Array(20)).map((data) => {
                 return (
